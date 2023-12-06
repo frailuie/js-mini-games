@@ -1,0 +1,10 @@
+pong logo:
+https://www.deviantart.com/ringostarr39/art/Pong-logo-525250760
+
+single player: 
+https://clipground.com/single-png.html
+
+tutorial:
+https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_Breakout_game_pure_JavaScript
+
+thank you!

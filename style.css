@@ -1,128 +1,84 @@
-@import url("https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap");
-
 * {
-  margin: 0;
   padding: 0;
-  box-sizing: inherit;
-}
-
-html {
-  font-size: 62.5%;
-  box-sizing: border-box;
+  margin: 0;
+  font-family: "Antonio";
 }
 
 body {
-  font-family: "Press Start 2P", sans-serif;
-  color: #f2e5e5;
-  background-color: #232222;
+  background-color: #cecccc;
 }
 
-/* LAYOUT */
-header {
-  position: relative;
-  height: 35vh;
-  border-bottom: 7px solid #f2e5e5;
-}
-
-main {
-  height: 65vh;
-  color: #f2e5e5;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.left {
-  width: 52rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.right {
-  width: 52rem;
-  font-size: 2rem;
-}
-
-/* ELEMENTS STYLE */
-h1 {
-  font-size: 4rem;
-  text-align: center;
-  position: absolute;
-  width: 100%;
-  top: 52%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-#headerText {
-  color: #232121;
-}
-
-.number {
-  background: #f2e5e5;
-  color: #302929;
-  font-size: 6rem;
-  width: 15rem;
-  padding: 3rem 0rem;
-  text-align: center;
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translate(-50%, 50%);
-}
-
-.between {
-  font-size: 1.4rem;
-  position: absolute;
-  top: 2rem;
-  right: 2rem;
-}
-
-.again {
-  position: absolute;
-  top: 2rem;
-  left: 2rem;
-}
-
-.again:hover {
-  background-color: #d7d1d19b;
-  color: white;
-}
-
-.guess {
-  background: hsla(0, 0%, 63%, 0.587);
-  border: 4px solid #f2e5e5;
-  font-family: inherit;
-  color: inherit;
-  font-size: 5rem;
-  padding: 2.5rem;
-  width: 25rem;
-  text-align: center;
+canvas {
+  background: rgba(249, 246, 246, 0.886);
   display: block;
-  margin-bottom: 3rem;
+  margin: 50px 0px 0px 50px;
 }
 
-.btn {
-  border: none;
-  background-color: #f2e5e5;
-  color: #222;
-  font-size: 2rem;
-  font-family: inherit;
-  padding: 2rem 3rem;
-  cursor: pointer;
+.gameLogo img {
+  height: 16%;
+  width: 16%;
 }
 
-.check:hover {
-  background-color: #92ff8e;
-  color: white;
+.gameLogo {
+  margin-top: -275px;
+  margin-left: 235px;
 }
 
-.message {
-  margin-bottom: 8rem;
-  height: 3rem;
+.singlePlayer img {
+  height: 3%;
+  width: 3%;
 }
 
-.label-score {
-  margin-bottom: 2rem;
+.singlePlayer {
+  margin-top: -50px;
+  margin-left: 192px;
+}
+
+hr {
+  border-top: 4px solid rgb(38, 37, 37);
+  margin-top: 0px;
+  width: 33px;
+}
+
+.highScoreBox {
+  background-color: rgba(0, 0, 0, 0.697);
+  color: rgb(243, 240, 240);
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 1.2rem;
+  height: 26px;
+  width: 130px;
+  padding: 2.5px;
+  margin-top: -68px;
+  margin-left: 50px;
+}
+
+/* alert box editing */
+.swal-overlay {
+  background-color: rgba(37, 39, 38, 0.853);
+}
+
+.swal-title {
+  margin: 0px;
+  font-size: 2.5rem;
+}
+
+.swal-text {
+  background-color: #292928cf;
+  padding: 17px;
+  border: 1px solid #eccfcda2;
+  display: block;
+  margin: 22px;
+  text-align: center;
+  font-size: 1.3rem;
+  color: #fffbf9;
+}
+
+.swal-button {
+  padding: 7px 19px;
+  border-radius: 2px;
+  background-color: #2f3137;
+  font-size: 12px;
+  border: 1px solid #b1c2fb;
+  text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.3);
 }

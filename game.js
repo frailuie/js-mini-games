@@ -15,7 +15,7 @@ let x = canvas.width / 2;
 let y = canvas.height - 30;
 
 // add values to x, y after draw function
-let dx = 2;
+let dx = 3;
 let dy = -2;
 
 // changing colors for fun
@@ -27,13 +27,38 @@ let score = 0;
 let highScore = 0;
 
 function changeColor() {
-  var letters = "0123456789ABCDEF".split("");
-  var color = "#";
+  let randomIndex = Math.floor(Math.random() * 25); // wanna include 0 indexed colors
+  const colors = [
+    "#F8B195",
+    "#F67280",
+    "#C06C84",
+    "#6C5B7B",
+    "#355C7D",
+    "#99B898",
+    "#FECEAB",
+    "#FF847C",
+    "#E84A5F",
+    "#2A363B",
+    "#FE4365",
+    "#FC9D9A",
+    "#F9CDAD",
+    "#C8C8A9",
+    "#83AF9B",
+    "#EDE574 ",
+    "#F9D423",
+    "#FC913A",
+    "#FF4E50",
+    "#A8A7A7",
+    "#CC527A",
+    "#E8175D",
+    "#474747",
+    "#363636",
+    "#547980",
+  ];
 
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
+  for (let i = 0; i < colors.length; i++) {
+    return colors[randomIndex];
   }
-  return color;
 }
 
 // cleaning up code, separate draw ball into it's own function
@@ -112,14 +137,17 @@ function draw() {
 
 // function to update score
 function drawScore() {
-  ctx.fillRect(4, 1.5, 93, 29);
-  ctx.font = "22px Antonio";
+  ctx.fillRect(0.2, 0.5, 134.2, 28);
+  ctx.font = "21px Antonio";
   ctx.fillStyle = "#efeaea";
-  ctx.fillText(`Score: ${score}`, 10, 24); // last 2 values are coordinates for text
+  ctx.fillText(`Score: ${score}`, 40, 24); // last 2 values are coordinates for text
 
   if (score > highScore) {
     highScore = score;
     document.querySelector("#topScore").textContent = highScore;
+    if (highScore >= 20) {
+      document.querySelector("#topScore").textContent += "🏆 ";
+    }
   }
 }
 

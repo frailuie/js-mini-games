@@ -1,116 +1,159 @@
 "use strict";
 
-/*
-da plan~!
-set an array to a set of color values
-loop through the values
-assign a new color to the title after some seconds 
-*/
+// buttons
+const rollBtn = document.querySelector(".btn--roll");
+const newBtn = document.querySelector(".btn--new");
 
-// for changing color of title
-const headerText = document.getElementById("headerText");
+// to switch players
+const player0 = document.querySelector(".player--0");
+const player1 = document.querySelector(".player--1");
 
-const colors = [
-  "#fcb3b3",
-  "#fcc0b3",
-  "#fccab3",
-  "#fcd1b3",
-  "#fce6b3",
-  "#fcefb3",
-  "#fcf8b3",
-  "#f0fcb3",
-  "#e0fcb3",
-  "#d7fcb3",
-  "#c9fcb3",
-  "#b9fcb3",
-  "#b3fcc0",
-  "#b3fcd4",
-  "#b3fce2",
-  "#b3ddfc",
-  "#b3c7fc",
-  "#b5b3fc",
-  "#cfb3fc",
-  "#e5b3fc",
-  "#fab3fc",
-  "#fcb3ea",
-  "#fcb3d5",
-  "#c6fcb3",
-  "#dcfcd1",
-  "#ebfce5",
-  "#f8fcf7",
-  "#e3e5e3",
-  "#caccc9",
-  "#aeafae",
-];
+// player score element variables
+const player0ScoreText = document.querySelector("#score--0");
+const player1ScoreText = document.querySelector("#score--1");
+const addToCurrent = document.querySelector(".current-score");
+const currentPlayerName = document.querySelector(".current-label");
 
-// using a for loop this time instead of random()
-for (let i = 0; i < colors.length; i++) {
-  setTimeout(() => {
-    headerText.style.color = colors[i];
-  }, i * 400);
+// dice elements
+const dice1 = document.querySelector(".dice");
+const dice2 = document.querySelector(".dice2");
+
+// starting values for game
+player0ScoreText.textContent = 0;
+player1ScoreText.textContent = 0;
+addToCurrent.textContent = 0;
+
+dice1.classList.add("hidden");
+dice2.classList.add("hidden");
+
+// current player stats
+let activePlayer = 0;
+let currentScore = 0;
+let scores = [0, 0];
+
+// switch players
+function switchPlayers() {
+  // add current score to active player's score in the array
+  scores[activePlayer] += currentScore;
+
+  // reset current score after switching
+  currentScore = 0;
+
+  // display updated scores
+  player0ScoreText.textContent = scores[0];
+  player1ScoreText.textContent = scores[1];
+
+  // switch the player
+  activePlayer = activePlayer === 0 ? 1 : 0; // if active player is player 1 (0), switch to player 2 (1), if not then the player is player 2 (1), switch back to 0
+
+  // player switch animation
+  player0.classList.toggle("player--active");
+  player1.classList.toggle("player--active");
+
+  // remove loser background
+  document
+    .querySelector(`.player--${activePlayer}`)
+    .classList.remove("player--loser");
 }
 
-// game variables
-let secretNumber = Math.floor(Math.random() * 20) + 1;
-let score = 20;
-let highScore = 0;
+rollBtn.addEventListener("click", function () {
+  // generate random dice rolls (need 2)
+  const dice1Num = Math.floor(Math.random() * 6) + 1;
+  const dice2Num = Math.floor(Math.random() * 6) + 1;
 
-// teacher's tip 🧑‍🏫
-const displayMessage = function (message) {
-  document.querySelector(".message").textContent = message;
-}; // using functions to make the code more DRY
+  dice1.src = `dice-${dice1Num}.png`;
+  dice2.src = `dice-${dice2Num}.png`;
 
-// event listener for check button
+  // display dice
+  dice1.classList.remove("hidden");
+  dice2.classList.remove("hidden");
 
-document.querySelector(".check").addEventListener("click", function () {
-  const guess = Number(document.querySelector(".guess").value);
-  // when no number has been entered
-  if (!guess) {
-    // STUDY: if the value of guess is falsy, do this vv
-    displayMessage("No number entered ⛔");
+  // if a 7 is NOT rolled
+  if (dice1Num + dice2Num !== 7) {
+    let addToScore = dice1Num + dice2Num;
+    currentScore += addToScore;
+
+    currentPlayerName.textContent =
+      activePlayer === 0 ? "Player 1" : "Player 2";
+
+    addToCurrent.innerHTML = `${scores[activePlayer]} (<span class="added-score">+${addToScore}</span>)`;
+
+    document.querySelector(`#score--${activePlayer}`).textContent =
+      currentScore;
+    switchPlayers();
   }
-  // winning the game
-  else if (guess === secretNumber) {
-    displayMessage("👌 Correct number!");
-    document.body.style.backgroundColor = "#54c465"; //green
-    headerText.style.color = "#f7f7f7"; //white
-    document.querySelector(".number").textContent = secretNumber;
 
-    // editing highscore variable
-    if (score > highScore) {
-      highScore = score;
-      document.querySelector(".highscore").textContent = highScore;
-    }
+  // if a 7 is rolled
+  else {
+    // add loser background
+    document
+      .querySelector(`.player--${activePlayer}`)
+      .classList.add("player--loser");
+
+    let addToScore = 0;
+    currentScore += addToScore;
+
+    currentPlayerName.textContent =
+      activePlayer === 0 ? "Player 1" : "Player 2";
+    addToCurrent.innerHTML = `${scores[activePlayer]} (<span class="added-score">+${addToScore}</span>)`;
+
+    document.querySelector(`#score--${activePlayer}`).textContent =
+      currentScore;
+
+    switchPlayers();
   }
-  // if guess is wrong
-  else if (guess !== secretNumber) {
-    // TIP: guess is different from secretNumber, covers both > or < scenarios
-    if (score > 1) {
-      guess > secretNumber
-        ? displayMessage("📈 Too high!")
-        : displayMessage("📉 Too low!");
-      score--;
-      document.querySelector(".score").textContent = score;
-    } else {
-      displayMessage("Aw, you lose! 💣");
-      document.querySelector(".score").textContent = 0;
-      document.body.style.backgroundColor = "#ea1e1e"; //red
-      headerText.style.color = "#fffcfc";
-    }
+
+  // if the same digits are rolled
+  if (dice1Num === dice2Num) {
+    let addToScore = (dice1Num + dice2Num) * 2;
+    currentScore += addToScore;
+
+    currentPlayerName.textContent =
+      activePlayer === 0 ? "Player 1" : "Player 2";
+    addToCurrent.innerHTML = `${scores[activePlayer]} (<span class="added-score">+${addToScore}</span>)`;
+    document.querySelector(`#score--${activePlayer}`).textContent =
+      currentScore;
+    switchPlayers();
+  }
+
+  // if a player reaches 100, they win the game
+  if (scores[0] >= 100 || scores[1] >= 100) {
+    // determine the winner by comparing the scores
+    const winner = scores[0] >= 100 ? 0 : 1;
+
+    document
+      .querySelector(`.player--${winner}`)
+      .classList.add("player--winner");
+
+    swal(
+      "Winner Winner 🍗 Dinner!",
+      `${winner === 0 ? "Player 1" : "Player 2"} wins with a score of ${
+        scores[winner]
+      }`,
+      "success"
+    );
   }
 });
 
-// restart game function
-document.querySelector(".again").addEventListener("click", function () {
-  // re-assigning score
-  score = 20;
-  document.querySelector(".score").textContent = score;
-  // re-assign secret number
-  secretNumber = Math.floor(Math.random() * 20) + 1;
-  // restore background styling
-  document.body.style.backgroundColor = "#232222";
-  // restore text content
-  displayMessage("Start guessing...");
-  document.querySelector(".number").textContent = "?";
-  document.querySelector(".guess").value = "";
+// start a new game
+newBtn.addEventListener("click", function () {
+  // starting values for game
+  player0ScoreText.textContent = 0;
+  player1ScoreText.textContent = 0;
+  addToCurrent.textContent = 0;
+
+  dice1.classList.add("hidden");
+  dice2.classList.add("hidden");
+
+  // current player stats
+  activePlayer = 0;
+  currentScore = 0;
+  scores = [0, 0];
+
+  // remove winner/loser background
+  document.querySelector(`.player--0`).classList.remove("player--winner");
+  document.querySelector(`.player--0`).classList.remove("player--loser");
+
+  document.querySelector(`.player--1`).classList.remove("player--winner");
+  document.querySelector(`.player--1`).classList.remove("player--loser");
 });

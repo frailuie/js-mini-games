@@ -1,0 +1,84 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Antonio";
+}
+
+body {
+  background-color: #cecccc;
+}
+
+canvas {
+  background: rgba(249, 246, 246, 0.886);
+  display: block;
+  margin: 50px 0px 0px 50px;
+}
+
+.gameLogo img {
+  height: 16%;
+  width: 16%;
+}
+
+.gameLogo {
+  margin-top: -275px;
+  margin-left: 235px;
+}
+
+.singlePlayer img {
+  height: 3%;
+  width: 3%;
+}
+
+.singlePlayer {
+  margin-top: -50px;
+  margin-left: 192px;
+}
+
+hr {
+  border-top: 4px solid rgb(38, 37, 37);
+  margin-top: 0px;
+  width: 33px;
+}
+
+.highScoreBox {
+  background-color: rgba(0, 0, 0, 0.697);
+  color: rgb(243, 240, 240);
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 1.2rem;
+  height: 26px;
+  width: 130px;
+  padding: 2.5px;
+  margin-top: -68px;
+  margin-left: 50px;
+}
+
+/* alert box editing */
+.swal-overlay {
+  background-color: rgba(37, 39, 38, 0.853);
+}
+
+.swal-title {
+  margin: 0px;
+  font-size: 2.5rem;
+}
+
+.swal-text {
+  background-color: #292928cf;
+  padding: 17px;
+  border: 1px solid #eccfcda2;
+  display: block;
+  margin: 22px;
+  text-align: center;
+  font-size: 1.3rem;
+  color: #fffbf9;
+}
+
+.swal-button {
+  padding: 7px 19px;
+  border-radius: 2px;
+  background-color: #2f3137;
+  font-size: 12px;
+  border: 1px solid #b1c2fb;
+  text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.3);
+}
